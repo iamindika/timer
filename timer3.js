@@ -16,11 +16,11 @@ const setTimer = (callback, delay, isLastTimer = false) => {
 const alarm = timers => {
   if (timers.length) {
     const validTimers = timers.filter(timer => !isNaN(timer) && Number(timer) >= 0);
-    validTimers.map((timer, i, timerArr) => {
-      const convertTimer = Number(timer);
+    convertTimer = validTimers.map(timer => Number(timer)).sort((a, b) => a - b);
+    convertTimer.map((timer, i, timerArr) => {
       const isLastTimer = i === (timerArr.length - 1);
-      process.stdout.write(`Alarm set for ${convertTimer} seconds...\n`);
-      isLastTimer ? setTimer(dot, convertTimer * 1000, true) : setTimer(dot, convertTimer * 1000);
+      process.stdout.write(`Alarm set for ${timer} seconds...\n`);
+      isLastTimer ? setTimer(dot, timer * 1000, true) : setTimer(dot, timer * 1000);
     })
   }
 }
